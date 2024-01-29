@@ -31,7 +31,19 @@ class DestinoDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(destino.nome),
+        title: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(Icons.place_outlined),
+                  const SizedBox(width: 8),
+                  Text(destino.nome),
+                ],
+              ),
+            ),
+          ),
         backgroundColor: Colors.blue[400],
       ),
       body: Column(

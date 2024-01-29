@@ -15,12 +15,23 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(appTitle),
+          title: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.explore_outlined),
+                  const SizedBox(width: 8),
+                  const Text(appTitle),
+                ],
+              ),
+            ),
+          ),
           backgroundColor: Colors.blue[400],
         ),
         body: SafeArea(
           child: DestinoItemList(),
-
         ),
       ),
     );
