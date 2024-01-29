@@ -100,28 +100,61 @@ class _DestinoItemState extends State<DestinoItem> {
   }
 }
 
-class DestinoItemList extends StatelessWidget {
+class DestinoItemList extends StatefulWidget {
+  @override
+  _DestinoItemListState createState() => _DestinoItemListState();
+}
+
+class _DestinoItemListState extends State<DestinoItemList> {
+  TextEditingController searchController = TextEditingController();
+  List<Destino> filteredDestinos = destinos;
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: destinos.length,
-      itemBuilder: (context, index) {
-        
-        Color backgroundColor = index % 2 == 0 ? Colors.blue[100]! : Colors.blue[200]!;
-        
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DestinoItem(destino: destinos[index], backgroundColor: backgroundColor),
-        );
-      },
+    return Column(
+      children: [
+        TextField(
+          controller: searchController,
+          onChanged: (value) {
+            setState(() {
+              filteredDestinos = destinos
+                  .where((destino) =>
+                      destino.nome.toLowerCase().contains(value.toLowerCase()))
+                  .toList();
+            });
+          },
+          decoration: InputDecoration(
+            labelText: 'Pesquisar Destinos',
+            prefixIcon: Icon(Icons.search),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: filteredDestinos.length,
+            itemBuilder: (context, index) {
+              Color backgroundColor =
+                  index % 2 == 0 ? Colors.blue[100]! : Colors.blue[200]!;
+
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DestinoItem(
+                  destino: filteredDestinos[index],
+                  backgroundColor: backgroundColor,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
 
+
 int gerarNumeroRandomico() {
   Random random = Random();
-  int numeroRandomico = random.nextInt(10) + 1; 
+  int numeroRandomico = random.nextInt(6) + 5; 
   return numeroRandomico;
 }
 
