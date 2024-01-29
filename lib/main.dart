@@ -75,8 +75,10 @@ class DestinoDetailScreen extends StatelessWidget {
 
 class DestinoItem extends StatefulWidget {
   final Destino destino;
+  final Color backgroundColor;
 
-  const DestinoItem({Key? key, required this.destino}) : super(key: key);
+  const DestinoItem({Key? key, required this.destino, required this.backgroundColor,}) : super(key: key);
+  
 
   @override
   _DestinoItemState createState() => _DestinoItemState();
@@ -96,6 +98,10 @@ class _DestinoItemState extends State<DestinoItem> {
       },
       child: Container(
         width: 300,
+        decoration: BoxDecoration(
+          color: widget.backgroundColor, 
+          borderRadius: BorderRadius.circular(10.0), 
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -106,6 +112,7 @@ class _DestinoItemState extends State<DestinoItem> {
               location: widget.destino.localizacao,
               numeroEstrelas: widget.destino.numeroEstrelas,
             ),
+            
           ],
         ),
       ),
@@ -120,15 +127,17 @@ class DestinoItemList extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: destinos.length,
       itemBuilder: (context, index) {
+        
+        Color backgroundColor = index % 2 == 0 ? Colors.blue[100]! : Colors.blue[200]!;
+        
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: DestinoItem(destino: destinos[index]),
+          child: DestinoItem(destino: destinos[index], backgroundColor: backgroundColor),
         );
       },
     );
   }
 }
-
 
 class TitleSection extends StatelessWidget {
   const TitleSection({
@@ -164,7 +173,7 @@ class TitleSection extends StatelessWidget {
                 Text(
                   location,
                   style: TextStyle(
-                    color: Colors.grey[500],
+                    color: Colors.black87,
                   ),
                 ),
               ],
