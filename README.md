@@ -30,3 +30,14 @@ oferecerá aos clientes acesso fácil às informações da agência e a praticid
 efetuar reservas de viagens diretamente por meio de seus dispositivos móveis.
 Essa estratégia visa proporcionar uma experiência integrada e conveniente para
 os clientes explorarem as ofertas da agência, tanto no aplicativo quanto no site.</p>
+
+
+<h2>Tela inicial</h2>
+<p>A tela inicial apresenta a lista de banners de cada destino disponível.</p>
+![image](https://github.com/Axemay/explore_mundo/assets/101254285/6bbdf1db-fc91-47cf-8828-e80b160820e2)
+
+<h2>Desscrição do destino</h2>
+<p>Para visualizar as informações do destino, o usuário deve clicar no banner correspondente.</p>
+![image](https://github.com/Axemay/explore_mundo/assets/101254285/f15678ad-5e91-45de-b767-bd6b525ad1eb)
+
+
