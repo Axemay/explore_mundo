@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,14 +13,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text(appTitle),
-            backgroundColor: Colors.blue[400],
-          ),
-          body: SafeArea(
-            child: DestinoItemList(),
-          )),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(appTitle),
+          backgroundColor: Colors.blue[400],
+        ),
+        body: SafeArea(
+          child: DestinoItemList(),
+        ),
+      ),
     );
   }
 }
@@ -40,98 +42,105 @@ class Destino {
   });
 }
 
-class DestinoItem extends StatelessWidget {
+class DestinoDetailScreen extends StatelessWidget {
   final Destino destino;
 
-  const DestinoItem({Key? key, required this.destino}) : super(key: key);
+  const DestinoDetailScreen({Key? key, required this.destino}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(destino.nome),
+        backgroundColor: Colors.blue[400],
+      ),
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ImageSection(image: destino.imagem),
-          TitleSection(name: destino.nome, location: destino.localizacao, numeroEstrelas: destino.numeroEstrelas,),
+          SizedBox(height: 8),
+          TitleSection(
+            name: destino.nome,
+            location: destino.localizacao,
+            numeroEstrelas: destino.numeroEstrelas,
+          ),
+          TextSection(description: destino.descricao), 
           ButtonSection(),
-          TextSection(description: destino.descricao),
         ],
       ),
     );
   }
 }
 
-class DestinoItemList extends StatelessWidget {
-  final List<Destino> destinos = [
-    Destino(
-      nome: 'Arraial d\'Ajuda',
-      localizacao: 'Porto Seguro, Bahia',
-      imagem: 'images/arraial.jpg',
-      numeroEstrelas: Random().nextInt(5) + 1,
-      descricao:
-          'Arraial d\'Ajuda é um distrito do município brasileiro de Porto Seguro, no litoral do estado da Bahia. De acordo com o Instituto Brasileiro de Geografia e Estatística, sua população no ano de 2010 era de 16 997 habitantes, sendo 8 543 homens e 8 454 mulheres, possuindo um total de 7 741 domicílios particulares.',
-    ),
-    Destino(
-      nome: 'Caraíva',
-      localizacao: 'Porto Seguro, Bahia',
-      imagem: 'images/caraiva.jpeg',
-      numeroEstrelas: Random().nextInt(5) + 1,
-      descricao:
-          'Caraíva é uma comunidade litorânea e ribeirinha situada em Porto Seguro, na Costa do Descobrimento, no extremo sul do estado da Bahia, Nordeste do Brasil. População fixa de 1000 habitantes. Localizada dentro da APA Trancoso/Caraíva e próximo ao parque nacional de Monte Pascoal.',
-    ),
-        Destino(
-      nome: 'Trancoso',
-      localizacao: 'Porto Seguro, Bahia',
-      imagem: 'images/trancoso.jpg',
-      numeroEstrelas: Random().nextInt(5) + 1,
-      descricao:
-          'Trancoso é um distrito do município brasileiro de Porto Seguro, no litoral do estado da Bahia. De acordo com o Instituto Brasileiro de Geografia e Estatística, sua população no ano de 2010 era de 11 006 habitantes, sendo 5 604 homens e 5 402 mulheres, possuindo um total de 4 816 domicílios particulares.',
-    ),
-        Destino(
-      nome: 'Ilha Grande',
-      localizacao: 'Rio de Janeiro, RJ',
-      imagem: 'images/ilhagrande.jpg',
-      numeroEstrelas: Random().nextInt(5) + 1,
-      descricao:
-          'Ilha Grande é uma ilha no estado brasileiro do Rio de Janeiro rodeada de praias, coberta pela Mata Atlântica e atravessada por trilhos sinuosos. Na margem sudeste, a extensa Praia de Lopes Mendes, ladeada de palmeiras, é conhecida pelas ondas propícias ao surf. Lagoa Azul, na zona norte da ilha, possui águas protegidas e repletas de peixes.',
-    ),
-        Destino(
-      nome: 'Búzios',
-      localizacao: 'Rio de Janeiro, RJ',
-      imagem: 'images/buzios.jpg',
-      numeroEstrelas: Random().nextInt(5) + 1,
-      descricao:
-          'Armação dos Búzios (ou Búzios), é uma estância brasileira situada numa península oceânica a este do Rio de Janeiro. É conhecida como um sofisticado destino de férias com inúmeras praias. Estas incluem Ferradura, numa calma baía em forma de ferradura com desportos aquáticos, e Geribá, um local de surf popular. ',
-    ),
-  ];
 
+class DestinoItem extends StatefulWidget {
+  final Destino destino;
+
+  const DestinoItem({Key? key, required this.destino}) : super(key: key);
+
+  @override
+  _DestinoItemState createState() => _DestinoItemState();
+}
+
+class _DestinoItemState extends State<DestinoItem> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DestinoDetailScreen(destino: widget.destino),
+          ),
+        );
+      },
+      child: Container(
+        width: 300,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ImageSection(image: widget.destino.imagem),
+            SizedBox(height: 8),
+            TitleSection(
+              name: widget.destino.nome,
+              location: widget.destino.localizacao,
+              numeroEstrelas: widget.destino.numeroEstrelas,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DestinoItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       itemCount: destinos.length,
       itemBuilder: (context, index) {
-        return Container(
-            child: DestinoItem(destino: destinos[index]));
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DestinoItem(destino: destinos[index]),
+        );
       },
     );
   }
 }
 
+
 class TitleSection extends StatelessWidget {
   const TitleSection({
-    super.key,
+    Key? key,
     required this.name,
     required this.location,
     required this.numeroEstrelas,
-  });
+  }) : super(key: key);
 
   final String name;
   final String location;
-  final int numeroEstrelas; 
-  
+  final int numeroEstrelas;
 
   @override
   Widget build(BuildContext context) {
@@ -140,11 +149,9 @@ class TitleSection extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
@@ -163,7 +170,6 @@ class TitleSection extends StatelessWidget {
               ],
             ),
           ),
-          
           Icon(
             Icons.star,
             color: Color.fromARGB(255, 238, 183, 4),
@@ -176,7 +182,7 @@ class TitleSection extends StatelessWidget {
 }
 
 class ButtonSection extends StatelessWidget {
-  const ButtonSection({super.key});
+  const ButtonSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -208,11 +214,11 @@ class ButtonSection extends StatelessWidget {
 
 class ButtonWithText extends StatelessWidget {
   const ButtonWithText({
-    super.key,
+    Key? key,
     required this.color,
     required this.icon,
     required this.label,
-  });
+  }) : super(key: key);
 
   final Color color;
   final IconData icon;
@@ -243,9 +249,9 @@ class ButtonWithText extends StatelessWidget {
 
 class TextSection extends StatelessWidget {
   const TextSection({
-    super.key,
+    Key? key,
     required this.description,
-  });
+  }) : super(key: key);
 
   final String description;
 
@@ -262,7 +268,7 @@ class TextSection extends StatelessWidget {
 }
 
 class ImageSection extends StatelessWidget {
-  const ImageSection({super.key, required this.image});
+  const ImageSection({Key? key, required this.image}) : super(key: key);
 
   final String image;
 
@@ -276,3 +282,47 @@ class ImageSection extends StatelessWidget {
     );
   }
 }
+
+
+List<Destino> destinos = [
+  Destino(
+    nome: 'Arraial d\'Ajuda',
+    localizacao: 'Porto Seguro, Bahia',
+    imagem: 'images/arraial.jpg',
+    numeroEstrelas: Random().nextInt(5) + 1,
+    descricao:
+        'Arraial d\'Ajuda é um distrito do município brasileiro de Porto Seguro, no litoral do estado da Bahia. De acordo com o Instituto Brasileiro de Geografia e Estatística, sua população no ano de 2010 era de 16 997 habitantes, sendo 8 543 homens e 8 454 mulheres, possuindo um total de 7 741 domicílios particulares.',
+  ),
+  Destino(
+    nome: 'Caraíva',
+    localizacao: 'Porto Seguro, Bahia',
+    imagem: 'images/caraiva.jpeg',
+    numeroEstrelas: Random().nextInt(5) + 1,
+    descricao:
+        'Caraíva é uma comunidade litorânea e ribeirinha situada em Porto Seguro, na Costa do Descobrimento, no extremo sul do estado da Bahia, Nordeste do Brasil. População fixa de 1000 habitantes. Localizada dentro da APA Trancoso/Caraíva e próximo ao parque nacional de Monte Pascoal.',
+  ),
+  Destino(
+    nome: 'Trancoso',
+    localizacao: 'Porto Seguro, Bahia',
+    imagem: 'images/trancoso.jpg',
+    numeroEstrelas: Random().nextInt(5) + 1,
+    descricao:
+        'Trancoso é um distrito do município brasileiro de Porto Seguro, no litoral do estado da Bahia. De acordo com o Instituto Brasileiro de Geografia e Estatística, sua população no ano de 2010 era de 11 006 habitantes, sendo 5 604 homens e 5 402 mulheres, possuindo um total de 4 816 domicílios particulares.',
+  ),
+  Destino(
+    nome: 'Ilha Grande',
+    localizacao: 'Rio de Janeiro, RJ',
+    imagem: 'images/ilhagrande.jpg',
+    numeroEstrelas: Random().nextInt(5) + 1,
+    descricao:
+        'Ilha Grande é uma ilha no estado brasileiro do Rio de Janeiro rodeada de praias, coberta pela Mata Atlântica e atravessada por trilhos sinuosos. Na margem sudeste, a extensa Praia de Lopes Mendes, ladeada de palmeiras, é conhecida pelas ondas propícias ao surf. Lagoa Azul, na zona norte da ilha, possui águas protegidas e repletas de peixes.',
+  ),
+  Destino(
+    nome: 'Búzios',
+    localizacao: 'Rio de Janeiro, RJ',
+    imagem: 'images/buzios.jpg',
+    numeroEstrelas: Random().nextInt(5) + 1,
+    descricao:
+        'Armação dos Búzios (ou Búzios), é uma estância brasileira situada numa península oceânica a este do Rio de Janeiro. É conhecida como um sofisticado destino de férias com inúmeras praias. Estas incluem Ferradura, numa calma baía em forma de ferradura com desportos aquáticos, e Geribá, um local de surf popular. ',
+  ),
+];
