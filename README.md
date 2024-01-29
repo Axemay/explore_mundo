@@ -33,11 +33,20 @@ os clientes explorarem as ofertas da agência, tanto no aplicativo quanto no sit
 
 
 <h2>Tela inicial</h2>
-<p>A tela inicial apresenta a lista de banners de cada destino disponível.</p>
-![image](https://github.com/Axemay/explore_mundo/assets/101254285/6bbdf1db-fc91-47cf-8828-e80b160820e2)
+<p>A tela inicial apresenta: </p> 
+<ul>
+  <li>Barra de busca</li>
+  <li>Lista de banners de cada destino</li>
+</ul>
+![image](https://github.com/Axemay/explore_mundo/assets/101254285/d487d671-ae38-4bdc-a905-7130857fad7e)
+
+<h2>Barra de busca/h2>
+<p>Retorna o card do destino pesquisado. </p>
+![image](https://github.com/Axemay/explore_mundo/assets/101254285/f9cee37d-e983-483c-a92e-fd3b31ccb75b)
 
 <h2>Desscrição do destino</h2>
 <p>Para visualizar as informações do destino, o usuário deve clicar no banner correspondente.</p>
-![image](https://github.com/Axemay/explore_mundo/assets/101254285/f15678ad-5e91-45de-b767-bd6b525ad1eb)
+![image](https://github.com/Axemay/explore_mundo/assets/101254285/af4948b8-9759-4aff-a474-9895d2edb986)
+
 
 
