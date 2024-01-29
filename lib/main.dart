@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:math';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -29,12 +29,14 @@ class Destino {
   final String localizacao;
   final String imagem;
   final String descricao;
+  final int numeroEstrelas;
 
   Destino({
     required this.nome,
     required this.localizacao,
     required this.imagem,
     required this.descricao,
+    required this.numeroEstrelas,
   });
 }
 
@@ -52,7 +54,7 @@ class DestinoItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ImageSection(image: destino.imagem),
-          TitleSection(name: destino.nome, location: destino.localizacao),
+          TitleSection(name: destino.nome, location: destino.localizacao, numeroEstrelas: destino.numeroEstrelas,),
           ButtonSection(),
           TextSection(description: destino.descricao),
         ],
@@ -67,6 +69,7 @@ class DestinoItemList extends StatelessWidget {
       nome: 'Arraial d\'Ajuda',
       localizacao: 'Porto Seguro, Bahia',
       imagem: 'images/arraial.jpg',
+      numeroEstrelas: Random().nextInt(5) + 1,
       descricao:
           'Arraial d\'Ajuda é um distrito do município brasileiro de Porto Seguro, no litoral do estado da Bahia. De acordo com o Instituto Brasileiro de Geografia e Estatística, sua população no ano de 2010 era de 16 997 habitantes, sendo 8 543 homens e 8 454 mulheres, possuindo um total de 7 741 domicílios particulares.',
     ),
@@ -74,6 +77,7 @@ class DestinoItemList extends StatelessWidget {
       nome: 'Caraíva',
       localizacao: 'Porto Seguro, Bahia',
       imagem: 'images/caraiva.jpeg',
+      numeroEstrelas: Random().nextInt(5) + 1,
       descricao:
           'Caraíva é uma comunidade litorânea e ribeirinha situada em Porto Seguro, na Costa do Descobrimento, no extremo sul do estado da Bahia, Nordeste do Brasil. População fixa de 1000 habitantes. Localizada dentro da APA Trancoso/Caraíva e próximo ao parque nacional de Monte Pascoal.',
     ),
@@ -81,6 +85,7 @@ class DestinoItemList extends StatelessWidget {
       nome: 'Trancoso',
       localizacao: 'Porto Seguro, Bahia',
       imagem: 'images/trancoso.jpg',
+      numeroEstrelas: Random().nextInt(5) + 1,
       descricao:
           'Trancoso é um distrito do município brasileiro de Porto Seguro, no litoral do estado da Bahia. De acordo com o Instituto Brasileiro de Geografia e Estatística, sua população no ano de 2010 era de 11 006 habitantes, sendo 5 604 homens e 5 402 mulheres, possuindo um total de 4 816 domicílios particulares.',
     ),
@@ -88,6 +93,7 @@ class DestinoItemList extends StatelessWidget {
       nome: 'Ilha Grande',
       localizacao: 'Rio de Janeiro, RJ',
       imagem: 'images/ilhagrande.jpg',
+      numeroEstrelas: Random().nextInt(5) + 1,
       descricao:
           'Ilha Grande é uma ilha no estado brasileiro do Rio de Janeiro rodeada de praias, coberta pela Mata Atlântica e atravessada por trilhos sinuosos. Na margem sudeste, a extensa Praia de Lopes Mendes, ladeada de palmeiras, é conhecida pelas ondas propícias ao surf. Lagoa Azul, na zona norte da ilha, possui águas protegidas e repletas de peixes.',
     ),
@@ -95,6 +101,7 @@ class DestinoItemList extends StatelessWidget {
       nome: 'Búzios',
       localizacao: 'Rio de Janeiro, RJ',
       imagem: 'images/buzios.jpg',
+      numeroEstrelas: Random().nextInt(5) + 1,
       descricao:
           'Armação dos Búzios (ou Búzios), é uma estância brasileira situada numa península oceânica a este do Rio de Janeiro. É conhecida como um sofisticado destino de férias com inúmeras praias. Estas incluem Ferradura, numa calma baía em forma de ferradura com desportos aquáticos, e Geribá, um local de surf popular. ',
     ),
@@ -118,10 +125,13 @@ class TitleSection extends StatelessWidget {
     super.key,
     required this.name,
     required this.location,
+    required this.numeroEstrelas,
   });
 
   final String name;
   final String location;
+  final int numeroEstrelas; 
+  
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +168,7 @@ class TitleSection extends StatelessWidget {
             Icons.star,
             color: Color.fromARGB(255, 238, 183, 4),
           ),
-          const Text('41'),
+          Text(numeroEstrelas.toString()),
         ],
       ),
     );
